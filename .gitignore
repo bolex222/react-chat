@@ -1,9 +1,18 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# ide
+.idea
+
+# npm config
+package-lock.json
+
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
+
+# config
+src/firebase.json
 
 # testing
 /coverage
