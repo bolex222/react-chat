@@ -1,35 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useState }  from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Connexion from './page/connexion/Connexion'
+import SignIn from './page/signin/SignIn'
+import SignUp from './page/signup/SignUp'
 import Chat from './page/chat/Chat'
+import Welcome from './page/welcome/Welcome';
 import './index.scss'
-import firebase from './config/firebase.config';
+import { AuthProvider } from './contexts/AuthContext'
 
 
 const App = () => {
-  const auth = firebase.auth()
-  useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log('connected');
-      } else {
-        console.log('redirect to login');
-      }
-    })
-  })
+
   return (
     <div className="App">
-      <Router>
+      <AuthProvider>
+        <Router>
         <Switch>
-          <Route path="/login">
-            <Connexion/>
+          <Route path='/chat'>
+            <Chat/>
+          </Route>
+          <Route path="/signIn">
+            <SignIn/>
+          </Route>
+          <Route path="/signUp">
+            <SignUp/>
           </Route>
           <Route path="/">
-            <Chat/>
+            <Welcome/>
           </Route>
         </Switch>
       </Router>
+      </AuthProvider>
     </div>
   )
 }

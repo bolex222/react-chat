@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react';
 import './chat.scss'
-import firebase from '../../config/firebase.config';
-const Chat = () => {
-  const auth = firebase.auth()
+import {auth} from '../../config/firebase.config';
+import { useHistory } from 'react-router-dom'
 
-  useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log(`${user.uid} is connected`);
-      } else {
-        console.log('no user connected yet');
-      }
-    })
-  })
+const Chat = () => {
+  const history = useHistory()
+
+  const disconnect = async () => {
+    try {
+      await auth.signOut()
+      console.log('diconnected');
+    } catch (e) {
+      console.log('error :(');
+    }
+  }
 
   return (
     <>
@@ -22,6 +23,8 @@ const Chat = () => {
       <div className="chat-messages">
         les messages
       </div>
+      <button onClick={disconnect}>sign out</button>
+
     </>
   )
 }
