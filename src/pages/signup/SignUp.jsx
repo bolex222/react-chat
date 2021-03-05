@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react'
-import StatelessField from '../../components/ui_ux/Fields/StatelessField'
-import ErrorMessage from '../../components/ui_ux/ErrorMessage/ErrorMessage'
+import StatelessField from '../../atoms/Fields/StatelessField'
+import ErrorMessage from '../../atoms/ErrorMessage/ErrorMessage'
 import { NavLink, useHistory } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import './Signup.scss'
 
 const SignUp = () => {
   const emailField = useRef(null)
@@ -27,7 +28,6 @@ const SignUp = () => {
         await signUp(emailValue, passwordValue)
         history.push('/')
       } catch ({ message, code }) {
-        console.log({ message, error })
         setError(code)
       }
     }
@@ -37,9 +37,10 @@ const SignUp = () => {
     <section>
       <form className="signup-form" onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
-        <StatelessField name="email" type="email" inputRef={emailField}>Email</StatelessField>
+        <StatelessField error={error === 'auth/email-already-in-use'} name="email" type="email" inputRef={emailField}>Email</StatelessField>
+        <ErrorMessage show={error === 'auth/email-already-in-use'} />
         <StatelessField name="password" type="password" inputRef={passwordField}>Password</StatelessField>
-        <StatelessField name="confirmPassword" type="password" inputRef={confirmPasswordField}>Confirm password</StatelessField>
+        <StatelessField error={error === 'n-m-pw'} name="confirmPassword" type="password" inputRef={confirmPasswordField}>Confirm password</StatelessField>
         <ErrorMessage show={error === 'n-m-pw'}>Passwords don't match</ErrorMessage>
         <button type="submit">Sign up</button>
         <NavLink to="/signin">Already have an account?</NavLink>

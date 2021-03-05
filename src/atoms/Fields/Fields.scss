@@ -1,0 +1,42 @@
+$color: #DDE8EC;
+$background: #F7F8F9;
+$darker-color: #8f8f8f;
+$error-color: #ff0000;
+$error-backgroud: #ffa0a0;
+
+.field-group {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding: 5px;
+  flex-wrap: wrap;
+
+  .field-label {
+    font-size: 1rem;
+  }
+
+  .field-input {
+    display: flex;
+    width: 100%;
+    font-size: 1.2rem;
+    background-color: $background;
+    box-shadow: none;
+    border-radius: 10px;
+    padding: 10px;
+    border: solid 2px $color;
+    outline: none;
+    color: $darker-color;
+    transition: border .3s ease;
+
+    &:focus {
+      border: solid 2px $darker-color;
+    }
+
+    &.field-input-error {
+      background-color: $error-backgroud;
+      color: $error-color;
+      border: solid 2px $error-color;
+
+    }
+  }
+}

@@ -1,12 +1,14 @@
 import React, { useState }  from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import SignIn from './page/signin/SignIn'
-import SignUp from './page/signup/SignUp'
-import Chat from './page/chat/Chat'
-import Welcome from './page/welcome/Welcome';
+import SignIn from './pages/signin/SignIn'
+import SignUp from './pages/signup/SignUp'
+import Chat from './pages/chat/Chat'
+import Welcome from './pages/welcome/Welcome';
 import './index.scss'
 import { AuthProvider } from './contexts/AuthContext'
+import PrivateRoute from './logicComponents/PrivateRoute'
+import PrivateLogRoute from './logicComponents/PrivateRoute'
 
 
 const App = () => {
@@ -16,18 +18,10 @@ const App = () => {
       <AuthProvider>
         <Router>
         <Switch>
-          <Route path='/chat'>
-            <Chat/>
-          </Route>
-          <Route path="/signIn">
-            <SignIn/>
-          </Route>
-          <Route path="/signUp">
-            <SignUp/>
-          </Route>
-          <Route path="/">
-            <Welcome/>
-          </Route>
+          <Route exact path="/" component={Welcome}/>
+          <PrivateRoute path='/chat' component={Chat} needToBeLogIn={true} toRedirect="/signin"/>
+          <PrivateLogRoute path="/signin" toRedirect="/" needToBeLogIn={false} component={SignIn}/>
+          <PrivateLogRoute path="/signup" toRedirect="/" needToBeLogIn={false} component={SignUp}/>
         </Switch>
       </Router>
       </AuthProvider>
