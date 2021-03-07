@@ -15,15 +15,10 @@ const SignIn = () => {
   const [{email, password }, setFormValue] =
     useState( { email: '', password: ''})
   const [error, setError] = useState('')
-  const [change, setChange ] = useState(0)
 
   // handle function
   const handleChange = e => {
     setFormValue(value => ({ ...value, [e.target.name]: e.target.value}))
-  }
-
-  const handleAddClick = () => {
-    setChange(change +1)
   }
 
   const handleSubmit = async e => {

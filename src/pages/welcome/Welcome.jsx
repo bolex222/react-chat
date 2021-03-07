@@ -2,7 +2,7 @@ import React  from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { NavLink } from 'react-router-dom'
 
-const Welcome = ({ connected }) => {
+const Welcome = () => {
 
   const { currentUser, signOut } = useAuth()
   const handleSignOut = async e => {

@@ -1,18 +1,21 @@
-import React, {useEffect} from 'react';
+import React from 'react'
 import './chat.scss'
-import {auth} from '../../config/firebase.config';
+import { useAuth } from '../../contexts/AuthContext'
 import { useHistory } from 'react-router-dom'
 
 const Chat = () => {
+
+  const { signOut } = useAuth()
   const history = useHistory()
 
-  const disconnect = async () => {
-    try {
-      await auth.signOut()
-      console.log('diconnected');
-    } catch (e) {
-      console.log('error :(');
-    }
+  const handleDisconnect = async e => {
+    e.preventDefault()
+      try {
+        await signOut()
+        history.push('/signin')
+      } catch {
+
+      }
   }
 
   return (
@@ -23,7 +26,7 @@ const Chat = () => {
       <div className="chat-messages">
         les messages
       </div>
-      <button onClick={disconnect}>sign out</button>
+      <button onClick={handleDisconnect}>sign out</button>
 
     </>
   )
